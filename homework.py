@@ -1,4 +1,4 @@
-from typing import Type, List, Dict, Tuple
+from typing import Type, List, Dict, Tuple, Union
 
 
 class InfoMessage:
@@ -65,7 +65,7 @@ class Training:
                                   f'"{self.__class__.__name__}"')
 
     def show_training_info(self) -> InfoMessage:
-        """Вернуть информационное сообщение о выполненной тренировке."""
+        """Вернуть сообщение о выполненной тренировке."""
         distance: float = self.get_distance()
         speed: float = self.get_mean_speed()
         calories: float = self.get_spent_calories()
@@ -150,7 +150,7 @@ class Swimming(Training):
         return calories
 
 
-def read_package(workout_type: str, data: List[int]) -> Training:
+def read_package(workout_type: str, data: List[int]) -> Union[Training, None]:
     """Прочитать данные полученные от датчиков."""
     training_types: Dict[str, Type[Training]] = {
         'SWM': Swimming,
@@ -160,15 +160,20 @@ def read_package(workout_type: str, data: List[int]) -> Training:
 
     try:
         training_type = training_types[workout_type]
+        return training_type(*data)
     except KeyError:
-        raise KeyError(f'<нет тренировки с кодом: "{workout_type}">')
-    return training_type(*data)
+        print(f'<нет тренировки с кодом: "{workout_type}" Класс тренировки не '
+              'определен >')
+        return None
 
 
-def main(training: Training) -> None:
+def main(training: Union[Training, None]) -> None:
     """Главная функция."""
-    info = training.show_training_info()
-    print(info.get_message())
+    if training:
+        info = training.show_training_info()
+        print(info.get_message())
+    else:
+        pass
 
 
 if __name__ == '__main__':
