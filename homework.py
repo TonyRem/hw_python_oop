@@ -29,6 +29,7 @@ class Training:
     """Базовый класс тренировки."""
     LEN_STEP = 0.65
     M_IN_KM = 1000
+    MINUTES_IN_HOUR = 60
 
     def __init__(self,
                  action: int,
@@ -68,7 +69,6 @@ class Running(Training):
     """Тренировка: бег."""
     CALORIES_MEAN_SPEED_MULTIPLIER = 18
     CALORIES_MEAN_SPEED_SHIFT = 1.79
-    MINUTES_IN_HOUR = 60
 
     def get_spent_calories(self) -> float:
         speed: float = self.get_mean_speed()
@@ -81,8 +81,7 @@ class Running(Training):
 
 class SportsWalking(Training):
     """Тренировка: спортивная ходьба."""
-    SECONDS_IN_HOUR = 3600
-    MINUTES_IN_HOUR = 60
+    SPEED_TO_M_IN_SEC = 0.278
     SM_IN_M = 100
     FIRST_CALORIES_WEIGHT_MULTIPLIER = 0.035
     SECOND_CALORIES_WEIGHT_MULTIPLIER = 0.029
@@ -98,7 +97,7 @@ class SportsWalking(Training):
 
     def get_spent_calories(self) -> float:
         speed: float = self.get_mean_speed()
-        speed_m_in_sec: float = speed * self.M_IN_KM / self.SECONDS_IN_HOUR
+        speed_m_in_sec: float = speed * self.SPEED_TO_M_IN_SEC
         duration_minutes: float = self.duration * self.MINUTES_IN_HOUR
         height_m: float = self.height / self.SM_IN_M
         calories: float = ((self.FIRST_CALORIES_WEIGHT_MULTIPLIER * self.weight
@@ -162,7 +161,6 @@ if __name__ == '__main__':
         ('SWM', [720, 1, 80, 25, 40]),
         ('RUN', [15000, 1, 75]),
         ('WLK', [9000, 1, 75, 180]),
-        ('test', [9000, 1, 75, 180]),
     ]
 
     for workout_type, data in packages:
