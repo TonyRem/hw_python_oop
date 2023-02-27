@@ -1,4 +1,4 @@
-from typing import Final, Type
+from typing import Type
 
 
 class InfoMessage:
@@ -36,8 +36,8 @@ class InfoMessage:
 class Training:
     """Базовый класс тренировки."""
     LEN_STEP: float = 0.65
-    M_IN_KM: Final[int] = 1000
-    MINUTES_IN_HOUR: Final[int] = 60
+    M_IN_KM: int = 1000
+    MINUTES_IN_HOUR: int = 60
 
     def __init__(self,
                  action: int,
@@ -76,8 +76,8 @@ class Training:
 
 class Running(Training):
     """Тренировка: бег."""
-    CALORIES_MEAN_SPEED_MULTIPLIER: Final[int] = 18
-    CALORIES_MEAN_SPEED_SHIFT: Final[float] = 1.79
+    CALORIES_MEAN_SPEED_MULTIPLIER: int = 18
+    CALORIES_MEAN_SPEED_SHIFT: float = 1.79
 
     def get_spent_calories(self) -> float:
         """Получить количество затраченных калорий."""
@@ -91,10 +91,10 @@ class Running(Training):
 
 class SportsWalking(Training):
     """Тренировка: спортивная ходьба."""
-    SPEED_TO_M_IN_SEC: Final[float] = 0.278
-    SM_IN_M: Final[int] = 100
-    WEIGHT_FACTOR: Final[float] = 0.035
-    SPEED_AND_WEIGHT_FACTOR: Final[float] = 0.029
+    SPEED_TO_M_IN_SEC: float = 0.278
+    SM_IN_M: int = 100
+    WEIGHT_FACTOR: float = 0.035
+    SPEED_AND_WEIGHT_FACTOR: float = 0.029
 
     def __init__(self,
                  action: int,
@@ -121,8 +121,8 @@ class SportsWalking(Training):
 class Swimming(Training):
     """Тренировка: плавание."""
     LEN_STEP: float = 1.38
-    SPEED_FACTOR: Final[float] = 1.1
-    SPEED_MULTIPIER: Final[float] = 2
+    SPEED_FACTOR: float = 1.1
+    SPEED_MULTIPIER: float = 2
 
     def __init__(self,
                  action: int,
