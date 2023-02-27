@@ -1,4 +1,4 @@
-from typing import Type
+from typing import Type, List, Dict, Tuple
 
 
 class InfoMessage:
@@ -122,7 +122,7 @@ class Swimming(Training):
     """Тренировка: плавание."""
     LEN_STEP: float = 1.38
     SPEED_FACTOR: float = 1.1
-    SPEED_MULTIPIER: float = 2
+    SPEED_MULTIPIER: int = 2
 
     def __init__(self,
                  action: int,
@@ -150,9 +150,9 @@ class Swimming(Training):
         return calories
 
 
-def read_package(workout_type: str, data: list[int]) -> Training:
+def read_package(workout_type: str, data: List[int]) -> Training:
     """Прочитать данные полученные от датчиков."""
-    training_types: dict[str, Type[Training]] = {
+    training_types: Dict[str, Type[Training]] = {
         'SWM': Swimming,
         'RUN': Running,
         'WLK': SportsWalking
@@ -172,7 +172,7 @@ def main(training: Training) -> None:
 
 
 if __name__ == '__main__':
-    packages: list[tuple[str, list[int]]] = [
+    packages: List[Tuple[str, List[int]]] = [
         ('SWM', [720, 1, 80, 25, 40]),
         ('RUN', [15000, 1, 75]),
         ('WLK', [9000, 1, 75, 180]),
