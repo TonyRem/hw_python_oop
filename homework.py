@@ -1,6 +1,3 @@
-from typing import Type
-
-
 class InfoMessage:
     """Информационное сообщение о тренировке."""
     MESSAGE: str = ('Тип тренировки: {training_type}; '
@@ -152,7 +149,7 @@ class Swimming(Training):
 
 def read_package(workout_type: str, data: list[int]) -> Training:
     """Прочитать данные полученные от датчиков."""
-    training_types: dict[str, Type[Training]] = {
+    training_types: dict[str, type[Training]] = {
         'SWM': Swimming,
         'RUN': Running,
         'WLK': SportsWalking
